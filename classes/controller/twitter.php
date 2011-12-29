@@ -19,7 +19,7 @@ class Controller_Twitter extends Controller {
 		else
 		{
 			return new TwitterOAuth(
-							Kohana::config('twitteroauth.consumer_key'), Kohana::config('twitteroauth.consumer_secret'), 
+							Kohana::$config->load('twitteroauth.consumer_key'), Kohana::$config->load('twitteroauth.consumer_secret'),
 							$this->access_token['oauth_token'], $this->access_token['oauth_token_secret']
 						);
 		}
@@ -33,7 +33,7 @@ class Controller_Twitter extends Controller {
 			$this->request->redirect('twitter/logout');
 		}
 		$twitter = new TwitterOAuth(
-							Kohana::config('twitteroauth.consumer_key'), Kohana::config('twitteroauth.consumer_secret'), 
+							Kohana::$config->load('twitteroauth.consumer_key'), Kohana::$config->load('twitteroauth.consumer_secret'),
 							$_SESSION['oauth_token'], $_SESSION['oauth_token_secret']
 						);
 		
@@ -60,8 +60,8 @@ class Controller_Twitter extends Controller {
 	
 	public function action_login()
 	{
-		$twitter = new TwitterOAuth(Kohana::config('twitteroauth.consumer_key'), Kohana::config('twitteroauth.consumer_secret'));
-		$request_token = $twitter->getRequestToken(Kohana::config('twitteroauth.oauth_callback'));
+		$twitter = new TwitterOAuth(Kohana::$config->load('twitteroauth.consumer_key'), Kohana::$config->load('twitteroauth.consumer_secret'));
+		$request_token = $twitter->getRequestToken(Kohana::$config->load('twitteroauth.oauth_callback'));
 		
 		/* Save request token to session */
 		$_SESSION['oauth_token'] = $token = $request_token['oauth_token'];
